@@ -1,4 +1,4 @@
-//Resource Group Values
+//Resource Group
 region_name = {
     primary = "southcentralus"
     failover = "northcentralus"
@@ -9,18 +9,18 @@ rg_name = {
     compute = "RG-COMPUTE"
 } 
 
-//Networking Values
+//Networking
 vnet_address_space = ["10.0.0.0/16"]
 subnet_address_space = ["10.0.0.0/24"]
 subnet_name = "Infra-01"
 vnet_name = "Hub-01"
 
-//Compute Values
+//Compute
 dc_server_vm_names = ["dc01"]
 server_vm_names = ["aad101", "web01"]
 vm_size = "Standard_b2s"
 
-//AD Domain Services Values
+//AD Domain Services
 active_directory_domain = "htxazlab.com"
 active_directory_netbios_name = "LAB"
 active_directory_username = "pmanning"
