@@ -7,3 +7,6 @@ Servers included in "server_vm_names" list will automatically be joined to domai
 
 Variable values are set in the tfvars file. 
 
+Key Vault & secret need to be created beforehand.
+
+Unique values: Key Vault, Key Vault RG, admin_pw_secret_name, active_directory_domain
