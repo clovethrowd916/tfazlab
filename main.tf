@@ -21,8 +21,8 @@ provider "azurerm" {
 
 // Bring in Key Vault
 data "azurerm_key_vault" "kv" {
-  name = "azlab-kv-sc02"
-  resource_group_name = "AZ-LAB-HOME-KV"
+  name = var.key_vault_name
+  resource_group_name = var.key_vault_rg
 }
 data "azurerm_key_vault_secret" "kv-secret" {
   name                = var.admin_pw_secret_name
@@ -57,13 +57,13 @@ resource "azurerm_virtual_network" "main_vnet" {
   address_space = var.vnet_address_space
   location = var.region_name["primary"]
   name =  var.vnet_name
-  resource_group_name = azurerm_resource_group.rg-network
-  dns_servers = var.domain_controller_ip
+  resource_group_name = azurerm_resource_group.rg-network.name
+  dns_servers = var.dns_server_ip
 }
 
 resource "azurerm_subnet" "infra_subnet" {
   name = var.subnet_name
-  resource_group_name = azurerm_resource_group.rg-network
+  resource_group_name = azurerm_resource_group.rg-network.name
   virtual_network_name = azurerm_virtual_network.main_vnet.name
   address_prefixes = var.subnet_address_space
 }
@@ -124,7 +124,7 @@ resource "azurerm_network_interface" "dc_server_vm_nic" {
   }
 }
 
-//Create Member Server  NICs
+//Create Member Server NICs
 resource "azurerm_network_interface" "member_server_vm_nic" {
   count               = length(var.server_vm_names)
   name                = "${var.server_vm_names[count.index]}-NIC"
@@ -229,6 +229,7 @@ SETTINGS
 }
 
 
+//Join member servers to Domain
 resource "azurerm_virtual_machine_extension" "join-domain" {
   count = length(var.server_vm_names)
   name                 = "join-vm-to-domain"

@@ -44,3 +44,4 @@ variable "domain_admin_user" {}
 variable "key_vault_name" {}
 variable "key_vault_rg" {}
 variable "admin_pw_secret_name" {}
+variable "dns_server_ip" {}
